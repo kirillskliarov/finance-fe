@@ -1,0 +1,7 @@
+<p>auth works!</p>
+<ul ngbNav [activeId]="path$ | async" class="nav-tabs">
+  <li [ngbNavItem]="link.url" *ngFor="let link of links">
+    <a ngbNavLink [routerLink]="link.url">{{ link.title }}</a>
+  </li>
+</ul>
+<router-outlet></router-outlet>

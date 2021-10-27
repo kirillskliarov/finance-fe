@@ -2,8 +2,11 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: false
+import { Config } from './Config';
+
+export const environment: Config = {
+  production: false,
+  host: 'http://localhost:3000',
 };
 
 /*
