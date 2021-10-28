@@ -3,8 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 import { Config } from './Config';
+import { common } from './common';
 
 export const environment: Config = {
+  ...common,
   production: false,
   host: 'http://localhost:3000',
 };

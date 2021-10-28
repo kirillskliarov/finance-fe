@@ -1,1 +1,24 @@
 <p>login works!</p>
+
+<form [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+>
+  <label>
+    <input formControlName="username"
+           placeholder="Username"
+           class="form-control"
+    >
+  </label>
+  <label>
+    <input formControlName="password"
+           placeholder="Password"
+           class="form-control"
+    >
+  </label>
+  <button type="submit"
+          class="btn btn-primary"
+          [disabled]="form.invalid || isPending"
+  >
+    Login
+  </button>
+</form>

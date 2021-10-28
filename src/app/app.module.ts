@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { interceptorProviders } from './appCore/interceptors/interceptorProviders';
-import { HttpClientModule } from '@angular/common/http';
+import { AppHttpModule } from './appCore/app-http/app-http.module';
+import { SessionModule } from './appCore/session/session.module';
+import { appInitializer } from './appCore/app-initializer';
+import { SessionService } from './appCore/session/session.service';
 
 @NgModule({
   declarations: [
@@ -14,11 +15,16 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    NgbModule,
+    AppHttpModule,
+    SessionModule,
   ],
   providers: [
-    ...interceptorProviders,
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: (sessionService: SessionService) => appInitializer(sessionService),
+      deps: [SessionService],
+    }
   ],
   bootstrap: [AppComponent]
 })

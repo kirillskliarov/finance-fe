@@ -5,9 +5,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppHttpModule } from '../appCore/app-http/app-http.module';
+import { SessionModule } from '../appCore/session/session.module';
 
 @NgModule({
   declarations: [
@@ -19,11 +20,11 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,
     NgbNavModule,
+    // SessionModule,
   ],
   providers: [
-    // AuthService,
+    AuthService,
   ],
 })
 export class AuthModule { }

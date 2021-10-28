@@ -1,7 +1,7 @@
 import { User } from './User';
 import { DateTime } from 'luxon';
-import { Exclude, Expose, Transform } from 'class-transformer';
-import { DateTimeClassTransformer } from '../libs/DateTimeClassTransformer';
+import { Exclude, Expose, Transform, Type } from 'class-transformer';
+import { dateTimeTransformer } from '../libs/dateTimeTransformer';
 
 @Exclude()
 export class Session {
@@ -9,13 +9,14 @@ export class Session {
   uuid: string;
 
   @Expose()
+  @Type(() => User)
   user: User;
 
   @Expose()
-  @Transform(DateTimeClassTransformer.toClass, { toClassOnly: true })
+  @Transform(dateTimeTransformer)
   createdAt: DateTime;
 
   @Expose()
-  @Transform(DateTimeClassTransformer.toClass, { toClassOnly: true })
+  @Transform(dateTimeTransformer)
   updatedAt: DateTime;
 }
