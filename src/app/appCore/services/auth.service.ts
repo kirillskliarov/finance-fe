@@ -1,16 +1,17 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Session } from '../../appCore/entities/Session';
-import { ISession } from '../../appCore/entities/response/ISession';
-import { CONFIG_TOKEN } from '../../appCore/injection-tokens/config.token';
+import { Session } from '../entities/Session';
+import { ISession } from '../entities/response/ISession';
+import { CONFIG_TOKEN } from '../injection-tokens/config.token';
 import { Config } from '../../../environments/Config';
-import { toClass } from '../../appCore/libs/toClass';
-import { SessionService } from '../../appCore/session/session.service';
+import { toClass } from '../libs/toClass';
+import { SessionService } from './session.service';
 import { tap } from 'rxjs/operators';
 
-// TODO: move service to root, implement logout
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
 
   constructor(

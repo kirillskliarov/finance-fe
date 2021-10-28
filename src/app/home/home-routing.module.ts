@@ -6,11 +6,30 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    children: [
+      {
+        path: 'portfolios',
+        loadChildren: () => import('../portfotios/portfotios.module').then(m => m.PortfotiosModule),
+      },
+      {
+        path: 'accounts',
+        loadChildren: () => import('../accounts/accounts.module').then(m => m.AccountsModule),
+      },
+      {
+        path: 'deals',
+        loadChildren: () => import('../deals/deals.module').then(m => m.DealsModule),
+      },
+      {
+        path: '',
+        redirectTo: 'portfolios',
+        pathMatch: 'full',
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class HomeRoutingModule { }

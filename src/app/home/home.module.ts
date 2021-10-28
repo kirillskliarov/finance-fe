@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { SessionModule } from '../appCore/session/session.module';
+import { SidePanelModule } from '../side-panel/side-panel.module';
 
 
 @NgModule({
@@ -13,7 +13,7 @@ import { SessionModule } from '../appCore/session/session.module';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    // SessionModule,
+    SidePanelModule,
   ],
 })
 export class HomeModule { }

@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { ResponseData } from '../../entities/ResponseData';
+import { ResponseData } from '../entities/ResponseData';
 
 @Injectable()
 export class DataInterceptor implements HttpInterceptor {

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SessionService } from '../appCore/session/session.service';
+import { SessionService } from '../appCore/services/session.service';
 
 @Component({
   selector: 'app-auth',
@@ -19,8 +19,6 @@ export class AuthComponent implements OnInit {
 
   constructor(
     public readonly route: ActivatedRoute,
-    public readonly router: Router,
-    public readonly sessionService: SessionService,
   ) { }
 
   ngOnInit(): void {

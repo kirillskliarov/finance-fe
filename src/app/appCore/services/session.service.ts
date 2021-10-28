@@ -8,7 +8,9 @@ import { CONFIG_TOKEN } from '../injection-tokens/config.token';
 import { Config } from '../../../environments/Config';
 import { User } from '../entities/User';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SessionService {
   private readonly session$: BehaviorSubject<Session | null> = new BehaviorSubject<Session | null>(null);
 

@@ -1,2 +1,12 @@
-<p>home works!</p>
-{{user$ | async | json}}
+<div class="d-flex flex-row">
+  <div class="home-side-panel">
+    <app-side-panel *ngIf="isLoggedIn$ | async"
+                    [path]="path$ | async"
+                    [links]="links"
+    >
+    </app-side-panel>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

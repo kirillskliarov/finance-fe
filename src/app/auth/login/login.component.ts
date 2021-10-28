@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AuthService } from '../../appCore/services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { finalize } from 'rxjs/operators';
-import { Session } from '../../../appCore/entities/Session';
+import { Session } from '../../appCore/entities/Session';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   form: FormGroup;
   isPending: boolean = false;
@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     if (this.form.valid && !this.isPending) {
       this.isPending = true;
-      this.authService.register(
+      this.authService.login(
         this.form.controls.username.value,
         this.form.controls.password.value
       ).pipe(
@@ -39,8 +39,9 @@ export class RegisterComponent implements OnInit {
           this.cdr.markForCheck();
         }),
       ).subscribe(
-        (session: Session) => {
-          console.log(session.user.username);
+        (session: Session | null) => {
+          this.isPending = false;
+          console.log(session?.user?.username);
         },
       );
     }

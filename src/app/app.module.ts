@@ -3,10 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppHttpModule } from './appCore/app-http/app-http.module';
-import { SessionModule } from './appCore/session/session.module';
 import { appInitializer } from './appCore/app-initializer';
-import { SessionService } from './appCore/session/session.service';
+import { HttpClientModule } from '@angular/common/http';
+import { interceptorProviders } from './appCore/interceptors/interceptorProviders';
+import { SessionService } from './appCore/services/session.service';
+import { SidePanelModule } from './side-panel/side-panel.module';
 
 @NgModule({
   declarations: [
@@ -15,10 +16,11 @@ import { SessionService } from './appCore/session/session.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AppHttpModule,
-    SessionModule,
+    HttpClientModule,
+    SidePanelModule,
   ],
   providers: [
+    ...interceptorProviders,
     {
       provide: APP_INITIALIZER,
       multi: true,
