@@ -32,6 +32,10 @@ export class SessionService {
     return this.session$.asObservable();
   }
 
+  getSessionSync(): Session | null {
+    return this.session$.getValue();
+  }
+
   getUser(): Observable<User | null> {
     return this.session$.asObservable().pipe(
       map((session: Session | null) => session?.user ?? null),

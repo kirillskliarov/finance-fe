@@ -11,7 +11,7 @@ import { SidePanelModule } from './side-panel/side-panel.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Session } from '../entities/Session';
-import { ISession } from '../entities/response/ISession';
+import { SessionResponse } from '../entities/response/SessionResponse';
 import { CONFIG_TOKEN } from '../injection-tokens/config.token';
 import { Config } from '../../../environments/Config';
 import { toClass } from '../libs/toClass';
@@ -21,7 +21,7 @@ export class AuthService {
   ) { }
 
   login(username: string, password: string): Observable<Session> {
-    return this.http.post<ISession>(`${this.config.host}/user/login`, {
+    return this.http.post<SessionResponse>(`${this.config.host}/user/login`, {
       username,
       password,
     }).pipe(
@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   register(username: string, password: string): Observable<Session> {
-    return this.http.post<ISession>(`${this.config.host}/user`, {
+    return this.http.post<SessionResponse>(`${this.config.host}/user`, {
       username,
       password,
     }).pipe(

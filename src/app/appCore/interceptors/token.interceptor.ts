@@ -6,13 +6,23 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { SessionService } from '../services/session.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(
+    private readonly sessionService: SessionService,
+  ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+    const token = this.sessionService.getSessionSync()?.uuid ?? '';
+    const authRequest = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+
+    return next.handle(authRequest);
   }
 }

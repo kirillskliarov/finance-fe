@@ -1,0 +1,17 @@
+<p>create-account works!</p>
+<form [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+>
+  <label>
+    <input formControlName="name"
+           placeholder="Account name"
+           class="form-control"
+    >
+  </label>
+  <button type="submit"
+          class="btn btn-primary"
+          [disabled]="form.invalid || isPending"
+  >
+    Create
+  </button>
+</form>
