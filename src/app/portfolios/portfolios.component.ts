@@ -3,11 +3,11 @@ import { PortfolioService } from '../appCore/services/portfolio.service';
 
 @Component({
   selector: 'app-portfolio',
-  templateUrl: './portfolio.component.html',
-  styleUrls: ['./portfolio.component.scss'],
+  templateUrl: './portfolios.component.html',
+  styleUrls: ['./portfolios.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PortfolioComponent implements OnInit {
+export class PortfoliosComponent implements OnInit {
 
   constructor(
     private readonly portfolioService: PortfolioService,

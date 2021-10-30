@@ -1,6 +1,7 @@
 import { Deal } from './Deal';
 import { Exclude, Expose, Type } from 'class-transformer';
 import { Split } from './Split';
+import { SecurityType } from './SecurityType';
 
 @Exclude()
 export class Security {
@@ -9,6 +10,9 @@ export class Security {
 
   @Expose()
   secid: string;
+
+  @Expose()
+  type: SecurityType;
 
   @Type(() => Deal)
   deals: Deal[];

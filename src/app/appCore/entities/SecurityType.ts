@@ -1,0 +1,7 @@
+export enum SecurityType {
+  STOCK = 'STOCK',
+  ETF = 'ETF',
+  CORPORATE_BOND = 'CORPORATE_BOND',
+  FEDERAL_BOND = 'FEDERAL_BOND',
+  CURRENCY = 'CURRENCY',
+}

@@ -21,13 +21,20 @@ export class Deal {
   exchangeFee: number;
 
   @Type(() => Account)
+  @Expose()
   account: Account;
 
   @Type(() => Portfolio)
+  @Expose()
   portfolio: Portfolio;
 
   @Type(() => Security)
+  @Expose()
   security: Security;
+
+  @Type(() => Security)
+  @Expose()
+  currency: Security;
 
   getTotal(): number {
     return -(this.amount * this.price) - this.brokerFee - this.exchangeFee;

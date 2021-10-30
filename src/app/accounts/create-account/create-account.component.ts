@@ -33,7 +33,6 @@ export class CreateAccountComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('onSubmit');
     if (this.form.valid && !this.isPending) {
       console.log('set submitting');
       this.isPending = true;
