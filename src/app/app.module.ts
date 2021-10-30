@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { interceptorProviders } from './appCore/interceptors/interceptorProviders';
 import { SessionService } from './appCore/services/session.service';
 import { SidePanelModule } from './side-panel/side-panel.module';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SidePanelModule } from './side-panel/side-panel.module';
     AppRoutingModule,
     HttpClientModule,
     SidePanelModule,
+    AgGridModule.withComponents([]),
   ],
   providers: [
     ...interceptorProviders,
