@@ -3,6 +3,9 @@ import { AccountService } from '../../appCore/services/account.service';
 import { Broker } from '../../appCore/entities/Broker';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BrokerService } from '../../appCore/services/broker.service';
+import { CreateAccountDTO } from '../../appCore/DTOs/CreateAccountDTO';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-account',
@@ -11,7 +14,7 @@ import { BrokerService } from '../../appCore/services/broker.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateAccountComponent implements OnInit {
-  brokers: Broker[];
+  brokers$: Observable<Broker[]>
   form: FormGroup;
   isPending: boolean = false;
   constructor(
@@ -26,13 +29,27 @@ export class CreateAccountComponent implements OnInit {
       broker: new FormControl(null, Validators.required),
     });
 
-    this.brokerService.getAll().subscribe((brokers: Broker[]) => {
-      this.brokers = brokers;
-      this.cdr.markForCheck();
-    });
+    this.brokers$ = this.brokerService.getAll();
   }
 
   onSubmit(): void {
-    console.log(this.form.value);
+    console.log('onSubmit');
+    if (this.form.valid && !this.isPending) {
+      console.log('set submitting');
+      this.isPending = true;
+      const account: CreateAccountDTO = {
+        name: this.form.value.name,
+        brokerUUID: this.form.value.broker?.uuid ?? null,
+      }
+
+      this.accountService.create(account)
+        .pipe(
+          finalize(() => {
+            this.isPending = false;
+            this.cdr.markForCheck();
+          }),
+        )
+        .subscribe();
+    }
   }
 }

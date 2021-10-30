@@ -11,4 +11,8 @@ export class Broker {
 
   @Type(() => Account)
   accounts: Account[];
+
+  toString(): string {
+    return this.name;
+  }
 }

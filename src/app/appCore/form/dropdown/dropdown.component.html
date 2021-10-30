@@ -1,1 +1,27 @@
-<p>dropdown works!</p>
+<div ngbDropdown class="d-inline-block">
+  <button class="btn btn-outline-primary"
+          ngbDropdownToggle
+          type="button"
+          [disabled]="disabled"
+          (click)="onTouch()"
+  >
+    {{value?.toString() ?? label}}
+  </button>
+  <div ngbDropdownMenu
+  >
+    <button ngbDropdownItem
+            type="button"
+            (click)="onSelect(null)"
+            [disabled]="disabled"
+    >&nbsp;
+    </button>
+    <button *ngFor="let item of items"
+            ngbDropdownItem
+            type="button"
+            (click)="onSelect(item)"
+            [disabled]="disabled"
+    >
+      {{item.toString()}}
+    </button>
+  </div>
+</div>

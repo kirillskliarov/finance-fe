@@ -22,8 +22,14 @@ export class SessionService {
 
   init(): void {
     const stringifiedSession = this.storage.getItem(this.config.storageSessionKey);
-    const plainSession = JSON.parse(stringifiedSession ?? '')
-    const session = plainToClass(Session, plainSession);
+    let session: Session | null;
+    try {
+      const plainSession = JSON.parse(stringifiedSession ?? '')
+      session = plainToClass(Session, plainSession);
+    } catch {
+      session = null;
+    }
+
     this.session$.next(session);
     // TODO implement subscription on change localstorage in other tab
   }
