@@ -1,33 +1,26 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-dropdown',
-  templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.scss'],
+  selector: 'app-dateinput',
+  templateUrl: './dateinput.component.html',
+  styleUrls: ['./dateinput.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: DropdownComponent,
+    useExisting: DateinputComponent,
     multi: true,
   }],
 })
-export class DropdownComponent implements OnInit, ControlValueAccessor {
-  @Input()
-  items: any[] | null;
-  @Input()
-  label: string = 'Select item';
-  @Input()
-  allowEmpty: boolean = true;
-
+export class DateinputComponent implements OnInit, ControlValueAccessor {
   onChangeFn: (value: any) => void;
   onTouchedFn: () => void;
   value: any | null;
   disabled: boolean;
-
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -46,14 +39,12 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
     this.value = value;
   }
 
-  onSelect(value: any): void {
+  onInputChange(value: any): void {
     this.value = value;
     this.onChangeFn(value);
   }
 
-  onOpenChanged(isOpened: boolean): void {
-    if (!isOpened) {
-      this.onTouchedFn();
-    }
+  onBlur(): void {
+    this.onTouchedFn();
   }
 }

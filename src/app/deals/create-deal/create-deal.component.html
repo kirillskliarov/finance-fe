@@ -1,1 +1,60 @@
-<p>create-deal works!</p>
+<p>create-account works!</p>
+<form [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+>
+  <app-dropdown formControlName="account"
+                [items]="accounts$ | async"
+                label="Account"
+                [allowEmpty]="false"
+  >
+  </app-dropdown>
+  <app-dropdown formControlName="portfolio"
+                [items]="portfolios$ | async"
+                label="Portfolio"
+                [allowEmpty]="false"
+  >
+  </app-dropdown>
+  <app-dateinput formControlName="date"
+  ></app-dateinput>
+  <app-timeinput formControlName="time"
+  ></app-timeinput>
+  <app-typeahead formControlName="security"
+                 [searchFn]="securitySearchFn"
+                 label="Security">
+  </app-typeahead>
+  <app-dropdown formControlName="currency"
+                [items]="currencies"
+                label="Currency"
+                [allowEmpty]="false"
+  ></app-dropdown>
+  <label>
+    <input formControlName="amount"
+           placeholder="Amount"
+           class="form-control"
+    >
+  </label>
+  <label>
+    <input formControlName="price"
+           placeholder="Price"
+           class="form-control"
+    >
+  </label>
+  <label>
+    <input formControlName="brokerFee"
+           placeholder="Broker fee"
+           class="form-control"
+    >
+  </label>
+  <label>
+    <input formControlName="exchangeFee"
+           placeholder="Exchange fee"
+           class="form-control"
+    >
+  </label>
+  <button type="submit"
+          class="btn btn-primary"
+          [disabled]="(form.invalid || isPending) && false"
+  >
+    Create
+  </button>
+</form>

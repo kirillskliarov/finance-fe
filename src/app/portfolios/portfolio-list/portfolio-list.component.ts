@@ -19,10 +19,11 @@ export class PortfolioListComponent implements OnInit {
   constructor(
     private readonly cdr: ChangeDetectorRef,
     private readonly portfolioService: PortfolioService,
-  ) { }
+  ) {
+    this.portfolios$ = this.portfolioService.getPortfolios();
+  }
 
   ngOnInit(): void {
-    this.portfolios$ = this.portfolioService.getPortfolios();
     this.portfolioService.loadPortfolios();
   }
 

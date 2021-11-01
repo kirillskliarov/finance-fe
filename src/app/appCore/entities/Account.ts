@@ -24,4 +24,8 @@ export class Account {
 
   @Type(() => Tax)
   taxes: Tax[];
+
+  toString(): string {
+    return this.name;
+  }
 }

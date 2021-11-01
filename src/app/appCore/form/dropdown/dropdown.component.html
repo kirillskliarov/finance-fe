@@ -1,15 +1,18 @@
-<div ngbDropdown class="d-inline-block">
+<div ngbDropdown
+     class="d-inline-block"
+     (openChange)="onOpenChanged($event)"
+>
   <button class="btn btn-outline-primary"
           ngbDropdownToggle
           type="button"
           [disabled]="disabled"
-          (click)="onTouch()"
   >
     {{value?.toString() ?? label}}
   </button>
   <div ngbDropdownMenu
   >
-    <button ngbDropdownItem
+    <button *ngIf="allowEmpty"
+            ngbDropdownItem
             type="button"
             (click)="onSelect(null)"
             [disabled]="disabled"

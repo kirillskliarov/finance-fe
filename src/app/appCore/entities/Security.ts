@@ -19,4 +19,8 @@ export class Security {
 
   @Type(() => Split)
   splits: Split[];
+
+  toString(): string {
+    return this.secid;
+  }
 }

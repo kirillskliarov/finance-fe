@@ -15,4 +15,8 @@ export class Portfolio {
 
   @Expose()
   portfolioTaxes: PortfolioTax[];
+
+  toString(): string {
+    return this.name;
+  }
 }

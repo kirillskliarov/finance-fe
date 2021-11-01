@@ -1,5 +1,6 @@
-export type findSecurityKeys = 'secid' | 'uuid';
+import { SecurityType } from '../entities/SecurityType';
 
-export type FindSecurityRequest = {
-  [key in findSecurityKeys]: string;
-};
+export interface FindSecurityRequest {
+  secidLike?: string;
+  type?: SecurityType;
+}

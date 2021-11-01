@@ -20,10 +20,11 @@ export class AccountListComponent implements OnInit {
   constructor(
     private readonly cdr: ChangeDetectorRef,
     private readonly accountService: AccountService,
-  ) { }
+  ) {
+    this.accounts$ = this.accountService.getAccounts();
+  }
 
   ngOnInit(): void {
-    this.accounts$ = this.accountService.getAccounts();
     this.accountService.loadAccounts();
   }
 

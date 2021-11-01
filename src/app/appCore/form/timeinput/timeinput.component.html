@@ -1,0 +1,10 @@
+<label>
+  <input [ngModel]="value"
+         (ngModelChange)="onInputChange($event)"
+         class="form-control"
+         type="text"
+         mask="00:00"
+         [dropSpecialCharacters]="false"
+         (blur)="onBlur()"
+  />
+</label>

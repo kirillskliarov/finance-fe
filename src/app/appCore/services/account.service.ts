@@ -8,6 +8,7 @@ import { AccountResponse } from '../entities/response/AccountResponse';
 import { Account } from '../entities/Account';
 import { CreateAccountDTO } from '../DTOs/CreateAccountDTO';
 import { delay, tap } from 'rxjs/operators';
+import { classToPlain } from 'class-transformer';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +22,11 @@ export class AccountService {
   ) { }
 
   create(account: CreateAccountDTO): Observable<Account> {
-    return this.http.post<AccountResponse>(`${this.config.host}/account`, account).pipe(
-      toClass(Account),
-      tap(() => this.loadAccounts()),
-    );
+    return this.http.post<AccountResponse>(`${this.config.host}/account`, classToPlain(account))
+      .pipe(
+        toClass(Account),
+        tap(() => this.loadAccounts()),
+      );
   }
 
   getAccounts(): Observable<Account[]> {

@@ -6,6 +6,7 @@ import { BrokerService } from '../../appCore/services/broker.service';
 import { CreateAccountDTO } from '../../appCore/DTOs/CreateAccountDTO';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { plainToClass } from 'class-transformer';
 
 @Component({
   selector: 'app-create-account',
@@ -34,13 +35,8 @@ export class CreateAccountComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid && !this.isPending) {
-      console.log('set submitting');
       this.isPending = true;
-      const account: CreateAccountDTO = {
-        name: this.form.value.name,
-        brokerUUID: this.form.value.broker?.uuid ?? null,
-      }
-
+      const account: CreateAccountDTO = plainToClass(CreateAccountDTO, this.form.value);
       this.accountService.create(account)
         .pipe(
           finalize(() => {
