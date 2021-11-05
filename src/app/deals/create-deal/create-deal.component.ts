@@ -11,6 +11,8 @@ import { PortfolioService } from '../../appCore/services/portfolio.service';
 import { Observable } from 'rxjs';
 import { Account } from '../../appCore/entities/Account';
 import { Portfolio } from '../../appCore/entities/Portfolio';
+import { Deal } from '../../appCore/entities/Deal';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-create-deal',
@@ -62,24 +64,28 @@ export class CreateDealComponent implements OnInit {
       brokerFee: new FormControl('', Validators.required),
       exchangeFee: new FormControl('', Validators.required),
     });
-
-    // @ts-ignore
-    window.form = this.form;
   }
 
   onSubmit(): void {
-    console.log(this.form.value);
-    // if ((this.form.value && !this.isPending) || true) {
-    //   this.isPending = true;
-    //   const createDealDTO = plainToClass(CreateDealDTO, this.form.value);
-    //   this.dealService.create(createDealDTO).pipe(
-    //     finalize(() => {
-    //       this.isPending = false;
-    //       this.cdr.markForCheck();
-    //     }),
-    //   )
-    //     .subscribe();
-    // }
+    if (this.form.value && !this.isPending) {
+      this.isPending = true;
+      const createDealDTO = plainToClass(
+        CreateDealDTO,
+        {
+          ...this.form.value
+        },
+        { excludeExtraneousValues: true },
+      );
+      const { date, time } = this.form.value;
+      createDealDTO.dateTime = DateTime.fromFormat(`${date} ${time}`, 'dd.MM.yyyy HH:mm');
+      this.dealService.create(createDealDTO).pipe(
+        finalize(() => {
+          this.isPending = false;
+          this.cdr.markForCheck();
+        }),
+      )
+        .subscribe();
+    }
   }
 
   loadCurrencies(): void {

@@ -6,7 +6,7 @@ import { Tax } from './Tax';
 
 @Exclude()
 export class Account {
-  @Expose({ toClassOnly: true })
+  @Expose()
   uuid: string;
 
   @Expose()

@@ -5,7 +5,7 @@ import { SecurityType } from './SecurityType';
 
 @Exclude()
 export class Security {
-  @Expose({ toClassOnly: true })
+  @Expose()
   uuid: string;
 
   @Expose()

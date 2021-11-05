@@ -1,24 +1,34 @@
-import { Expose, Transform } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import { DateTime } from 'luxon';
 import { dateTimeTransformer } from '../libs/dateTimeTransformer';
 import { Security } from '../entities/Security';
 import { Account } from '../entities/Account';
-import { entityToPlainTransformer } from '../libs/entityToPlainTransformer';
+import { Portfolio } from '../entities/Portfolio';
+import { entityTransformer } from '../libs/entityTransformer';
 
+@Exclude()
 export class CreateDealDTO {
-  amount: string;
+  @Expose()
+  amount: number;
+  @Expose()
   @Transform(dateTimeTransformer)
   dateTime: DateTime;
+  @Expose()
   price: number;
+  @Expose()
   brokerFee: number;
+  @Expose()
   exchangeFee: number;
-  @Transform(entityToPlainTransformer, { toPlainOnly: true })
-  @Expose({ name: 'securityUUID', toPlainOnly: true })
+  @Transform(entityTransformer)
+  @Expose()
   security: Security;
-  @Transform(entityToPlainTransformer, { toPlainOnly: true })
-  @Expose({ name: 'currencyUUID', toPlainOnly: true })
+  @Transform(entityTransformer)
+  @Expose()
   currency: Security;
-  @Transform(entityToPlainTransformer, { toPlainOnly: true })
-  @Expose({ name: 'accountUUID', toPlainOnly: true })
+  @Transform(entityTransformer)
+  @Expose()
   account: Account;
+  @Transform(entityTransformer)
+  @Expose()
+  portfolio: Portfolio;
 }

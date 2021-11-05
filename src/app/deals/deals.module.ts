@@ -9,6 +9,7 @@ import { DropdownModule } from '../appCore/form/dropdown/dropdown.module';
 import { TypeaheadModule } from '../appCore/form/typeahead/typeahead.module';
 import { DateinputModule } from '../appCore/form/dateinput/dateinput.module';
 import { TimeinputModule } from '../appCore/form/timeinput/timeinput.module';
+import { NumberinputModule } from '../appCore/form/numberinput/numberinput.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { TimeinputModule } from '../appCore/form/timeinput/timeinput.module';
     DropdownModule,
     TypeaheadModule,
     DateinputModule,
-    TimeinputModule
+    TimeinputModule,
+    NumberinputModule
   ]
 })
 export class DealsModule { }

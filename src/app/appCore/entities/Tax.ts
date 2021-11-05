@@ -4,7 +4,7 @@ import { Exclude, Expose, Type } from 'class-transformer';
 
 @Exclude()
 export class Tax {
-  @Expose({ toClassOnly: true })
+  @Expose()
   uuid: string;
 
   @Expose()

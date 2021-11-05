@@ -1,0 +1,8 @@
+<label>
+  <input [placeholder]="appPlaceholder"
+         class="form-control"
+         [ngModel]="viewedValue"
+         (ngModelChange)="onInputChange($event)"
+         (blur)="onBlur()"
+  >
+</label>

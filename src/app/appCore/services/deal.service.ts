@@ -21,7 +21,8 @@ export class DealService {
   ) { }
 
   create(create: CreateDealDTO): Observable<Deal> {
-    return this.http.post<DealResponse>(`${this.config.host}/deal`, classToPlain(create)).pipe(
+    const plain = classToPlain(create);
+    return this.http.post<DealResponse>(`${this.config.host}/deal`, plain).pipe(
       toClass(Deal),
     )
   }

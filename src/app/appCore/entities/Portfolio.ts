@@ -4,7 +4,7 @@ import { PortfolioTax } from './PortfolioTax';
 
 @Exclude()
 export class Portfolio {
-  @Expose({ toPlainOnly: true })
+  @Expose()
   uuid: string;
 
   @Expose()

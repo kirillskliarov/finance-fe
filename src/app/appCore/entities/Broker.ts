@@ -3,7 +3,7 @@ import { Account } from './Account';
 
 @Exclude()
 export class Broker {
-  @Expose({ toClassOnly: true })
+  @Expose()
   uuid: string;
 
   @Expose()

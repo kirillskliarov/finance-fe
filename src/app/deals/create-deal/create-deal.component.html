@@ -27,33 +27,21 @@
                 label="Currency"
                 [allowEmpty]="false"
   ></app-dropdown>
-  <label>
-    <input formControlName="amount"
-           placeholder="Amount"
-           class="form-control"
-    >
-  </label>
-  <label>
-    <input formControlName="price"
-           placeholder="Price"
-           class="form-control"
-    >
-  </label>
-  <label>
-    <input formControlName="brokerFee"
-           placeholder="Broker fee"
-           class="form-control"
-    >
-  </label>
-  <label>
-    <input formControlName="exchangeFee"
-           placeholder="Exchange fee"
-           class="form-control"
-    >
-  </label>
+  <app-numberinput formControlName="amount"
+                   appPlaceholder="Amount"
+  ></app-numberinput>
+  <app-numberinput formControlName="price"
+                   appPlaceholder="Price"
+  ></app-numberinput>
+  <app-numberinput formControlName="brokerFee"
+                   appPlaceholder="Broker fee"
+  ></app-numberinput>
+  <app-numberinput formControlName="exchangeFee"
+                   appPlaceholder="Exchange fee"
+  ></app-numberinput>
   <button type="submit"
           class="btn btn-primary"
-          [disabled]="(form.invalid || isPending) && false"
+          [disabled]="form.invalid || isPending"
   >
     Create
   </button>

@@ -5,7 +5,7 @@ import { dateTimeTransformer } from '../libs/dateTimeTransformer';
 
 @Exclude()
 export class Split {
-  @Expose({ toClassOnly: true })
+  @Expose()
   uuid: string;
 
   @Expose()

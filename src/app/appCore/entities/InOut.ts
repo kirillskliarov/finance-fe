@@ -3,7 +3,7 @@ import { Exclude, Expose, Type } from 'class-transformer';
 
 @Exclude()
 export class InOut {
-  @Expose({ toClassOnly: true })
+  @Expose()
   uuid: string;
 
   @Expose()
