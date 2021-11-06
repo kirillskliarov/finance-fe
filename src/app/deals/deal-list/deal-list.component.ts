@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DealService } from '../../appCore/services/deal.service';
 import { Deal } from '../../appCore/entities/Deal';
+import { ColDef } from 'ag-grid-community';
 
 @Component({
   selector: 'app-deal-list',
@@ -10,6 +11,16 @@ import { Deal } from '../../appCore/entities/Deal';
 })
 export class DealListComponent implements OnInit {
   deals: Deal[];
+  columnDefs: ColDef[] = [
+    { field: 'amount' },
+    { field: 'price' },
+    { field: 'brokerFee' },
+    { field: 'exchangeFee' },
+    { field: 'account' },
+    { field: 'portfolio' },
+    { field: 'security' },
+    { field: 'currency' },
+  ];
 
   constructor(
     private readonly cdr: ChangeDetectorRef,
@@ -17,6 +28,7 @@ export class DealListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadDeals();
     this.dealService.getCreatedDeal().subscribe(() => {
       this.loadDeals();
     });
