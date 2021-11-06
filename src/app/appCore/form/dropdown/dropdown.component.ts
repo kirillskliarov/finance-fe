@@ -14,7 +14,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class DropdownComponent implements OnInit, ControlValueAccessor {
   @Input()
-  items: any[] | null;
+  items: ReadonlyArray<any> | null;
   @Input()
   label: string = 'Select item';
   @Input()

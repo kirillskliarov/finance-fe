@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../broker/broker.module').then(m => m.BrokerModule),
       },
       {
+        path: 'security',
+        loadChildren: () => import('../security/security.module').then(m => m.SecurityModule),
+      },
+      {
         path: '',
         redirectTo: 'portfolios',
         pathMatch: 'full',

@@ -1,0 +1,22 @@
+<p>create-portfolio works!</p>
+<form [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+>
+  <label>
+    <input formControlName="secid"
+           placeholder="Sec ID"
+           class="form-control"
+    >
+  </label>
+  <app-dropdown formControlName="type"
+                [items]="securityTypes"
+                [allowEmpty]="false"
+  >
+  </app-dropdown>
+  <button type="submit"
+          class="btn btn-primary"
+          [disabled]="form.invalid || isPending"
+  >
+    Create
+  </button>
+</form>

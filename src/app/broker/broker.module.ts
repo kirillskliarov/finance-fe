@@ -5,6 +5,7 @@ import { CreateBrokerComponent } from './create-broker/create-broker.component';
 import { BrokerListComponent } from './broker-list/broker-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrokerRoutingModule } from './broker-routing.module';
+import { AgGridModule } from 'ag-grid-angular';
 
 
 
@@ -18,6 +19,7 @@ import { BrokerRoutingModule } from './broker-routing.module';
     CommonModule,
     BrokerRoutingModule,
     ReactiveFormsModule,
+    AgGridModule,
   ]
 })
 export class BrokerModule { }

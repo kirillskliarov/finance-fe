@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
     { title: 'Deals', url: 'deals' },
     { title: 'Accounts', url: 'accounts' },
     { title: 'Broker', url: 'broker' },
+    { title: 'Security', url: 'security' },
   ];
 
   constructor(
