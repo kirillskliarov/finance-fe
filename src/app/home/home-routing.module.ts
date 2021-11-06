@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('../deals/deals.module').then(m => m.DealsModule),
       },
       {
+        path: 'broker',
+        loadChildren: () => import('../broker/broker.module').then(m => m.BrokerModule),
+      },
+      {
         path: '',
         redirectTo: 'portfolios',
         pathMatch: 'full',

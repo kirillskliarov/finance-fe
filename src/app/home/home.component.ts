@@ -3,7 +3,7 @@ import { SessionService } from '../appCore/services/session.service';
 import { User } from '../appCore/entities/User';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
     { title: 'Portfolios', url: 'portfolios' },
     { title: 'Deals', url: 'deals' },
     { title: 'Accounts', url: 'accounts' },
+    { title: 'Broker', url: 'broker' },
   ];
 
   constructor(

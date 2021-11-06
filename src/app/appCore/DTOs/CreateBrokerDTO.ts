@@ -1,7 +1,7 @@
 import { Exclude, Expose } from 'class-transformer';
 
 @Exclude()
-export class CreatePortfolioDTO {
+export class CreateBrokerDTO {
   @Expose()
   name: string;
 }
