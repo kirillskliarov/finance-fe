@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { DealService } from '../appCore/services/deal.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-deals',
@@ -8,13 +7,8 @@ import { DealService } from '../appCore/services/deal.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DealsComponent implements OnInit {
-  constructor(
-    private readonly cdr: ChangeDetectorRef,
-    private readonly dealService: DealService,
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
-
-
 }

@@ -11,7 +11,6 @@ import { PortfolioService } from '../../appCore/services/portfolio.service';
 import { Observable } from 'rxjs';
 import { Account } from '../../appCore/entities/Account';
 import { Portfolio } from '../../appCore/entities/Portfolio';
-import { Deal } from '../../appCore/entities/Deal';
 import { DateTime } from 'luxon';
 
 @Component({
@@ -29,7 +28,6 @@ export class CreateDealComponent implements OnInit {
 
   form: FormGroup;
   isPending: boolean = false;
-  foundSecurities: Security[] = []
 
   constructor(
     private readonly cdr: ChangeDetectorRef,
@@ -60,9 +58,22 @@ export class CreateDealComponent implements OnInit {
       security: new FormControl(null, Validators.required),
       currency: new FormControl(null, Validators.required),
       amount: new FormControl('', Validators.required),
-      price: new FormControl('', Validators.required),
-      brokerFee: new FormControl('', Validators.required),
-      exchangeFee: new FormControl('', Validators.required),
+      pricePerUnit: new FormControl(null),
+      price: new FormControl(null, Validators.required),
+      brokerFee: new FormControl(null, Validators.required),
+      exchangeFee: new FormControl(null, Validators.required),
+    });
+
+    this.form.controls.pricePerUnit.valueChanges.subscribe((pricePerUnit: number) => {
+      const amount = this.form.controls.amount.value;
+      this.form.controls.price.setValue(Number(amount) * Number(pricePerUnit));
+      this.form.controls.price.updateValueAndValidity();
+    });
+
+    this.form.controls.amount.valueChanges.subscribe((amount: number) => {
+      const pricePerUnit = this.form.controls.pricePerUnit.value;
+      this.form.controls.price.setValue(Number(amount) * Number(pricePerUnit));
+      this.form.controls.price.updateValueAndValidity();
     });
   }
 

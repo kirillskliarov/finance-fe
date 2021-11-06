@@ -1,11 +1,10 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
-  OnInit, Renderer2,
+  OnInit,
   ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -21,7 +20,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     multi: true,
   }],
 })
-export class NumberinputComponent implements OnInit, AfterViewInit, ControlValueAccessor {
+export class NumberinputComponent implements OnInit, ControlValueAccessor {
 
   typingPattern = /^-?(\d+[.,]?\d*)?$/;
   valuePattern = /^-?\d+([.,]\d+)?$/;
@@ -37,15 +36,7 @@ export class NumberinputComponent implements OnInit, AfterViewInit, ControlValue
 
   constructor(
     private readonly cdr: ChangeDetectorRef,
-    private readonly renderer: Renderer2,
   ) { }
-
-  ngAfterViewInit(): void {
-    // this.renderer.listen(this.inputElement.nativeElement, 'keyup', (event: Event) => {
-    //   console.log(event);
-    //   this.onInputChange();
-    // })
-  }
 
   ngOnInit(): void {
   }
@@ -60,11 +51,13 @@ export class NumberinputComponent implements OnInit, AfterViewInit, ControlValue
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   writeValue(value: number | null): void {
     this.value = value;
     this.viewedValue = String(value ?? '');
+    this.cdr.markForCheck();
   }
 
   onInputChange(inputValue: string): void {
@@ -74,6 +67,7 @@ export class NumberinputComponent implements OnInit, AfterViewInit, ControlValue
 
   onBlur(): void {
     this.onTouchedFn();
+    this.cdr.markForCheck();
   }
 
 }

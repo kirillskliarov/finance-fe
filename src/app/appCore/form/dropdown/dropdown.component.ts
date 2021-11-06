@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -25,7 +25,9 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
   value: any | null;
   disabled: boolean;
 
-  constructor() { }
+  constructor(
+    private readonly cdr: ChangeDetectorRef,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -40,10 +42,12 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   writeValue(value: any): void {
     this.value = value;
+    this.cdr.markForCheck();
   }
 
   onSelect(value: any): void {
@@ -54,6 +58,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
   onOpenChanged(isOpened: boolean): void {
     if (!isOpened) {
       this.onTouchedFn();
+      this.cdr.markForCheck();
     }
   }
 }

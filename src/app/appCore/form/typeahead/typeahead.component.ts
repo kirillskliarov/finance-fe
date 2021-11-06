@@ -71,15 +71,18 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   writeValue(value: any): void {
     this.value = value;
+    this.cdr.markForCheck();
   }
 
   onSelectItem(value: any): void {
     this.setValue(value);
     this.onTouchedFn();
+    this.cdr.markForCheck();
   }
 
   setValue(value: any): void {
@@ -92,5 +95,6 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor {
       this.setValue(this.singleResult);
     }
     this.onTouchedFn();
+    this.cdr.markForCheck();
   }
 }

@@ -10,12 +10,14 @@ import { TypeaheadModule } from '../appCore/form/typeahead/typeahead.module';
 import { DateinputModule } from '../appCore/form/dateinput/dateinput.module';
 import { TimeinputModule } from '../appCore/form/timeinput/timeinput.module';
 import { NumberinputModule } from '../appCore/form/numberinput/numberinput.module';
+import { DealListComponent } from './deal-list/deal-list.component';
 
 
 @NgModule({
   declarations: [
     DealsComponent,
-    CreateDealComponent
+    CreateDealComponent,
+    DealListComponent
   ],
   imports: [
     CommonModule,

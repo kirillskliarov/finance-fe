@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -17,7 +17,10 @@ export class DateinputComponent implements OnInit, ControlValueAccessor {
   onTouchedFn: () => void;
   value: any | null;
   disabled: boolean;
-  constructor() { }
+
+  constructor(
+    private readonly cdr: ChangeDetectorRef,
+  ) { }
 
   ngOnInit(): void {
 
@@ -33,10 +36,12 @@ export class DateinputComponent implements OnInit, ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   writeValue(value: any): void {
     this.value = value;
+    this.cdr.markForCheck();
   }
 
   onInputChange(value: any): void {
@@ -46,5 +51,6 @@ export class DateinputComponent implements OnInit, ControlValueAccessor {
 
   onBlur(): void {
     this.onTouchedFn();
+    this.cdr.markForCheck();
   }
 }

@@ -3,17 +3,18 @@ import { CONFIG_TOKEN } from '../injection-tokens/config.token';
 import { Config } from '../../../environments/Config';
 import { HttpClient } from '@angular/common/http';
 import { CreateDealDTO } from '../DTOs/CreateDealDTO';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { Deal } from '../entities/Deal';
 import { DealResponse } from '../entities/response/DealResponse';
 import { classToPlain, plainToClass } from 'class-transformer';
 import { toClass } from '../libs/toClass';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DealService {
-  private readonly deals$ = new ReplaySubject<Deal[]>(1);
+  private readonly createdDeal$ = new Subject<Deal>();
 
   constructor(
     @Inject(CONFIG_TOKEN) private readonly config: Config,
@@ -21,8 +22,18 @@ export class DealService {
   ) { }
 
   create(create: CreateDealDTO): Observable<Deal> {
-    const plain = classToPlain(create);
-    return this.http.post<DealResponse>(`${this.config.host}/deal`, plain).pipe(
+    return this.http.post<DealResponse>(`${this.config.host}/deal`, classToPlain(create)).pipe(
+      toClass(Deal),
+      tap((deal: Deal) => this.createdDeal$.next(deal)),
+    )
+  }
+
+  getCreatedDeal(): Observable<Deal> {
+    return this.createdDeal$.asObservable();
+  }
+
+  find(): Observable<Deal[]> {
+    return this.http.get<DealResponse[]>(`${this.config.host}/deal`).pipe(
       toClass(Deal),
     )
   }
