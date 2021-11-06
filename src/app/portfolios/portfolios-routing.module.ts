@@ -7,6 +7,11 @@ const routes: Routes = [
     path: '',
     component: PortfoliosComponent,
   },
+  {
+    path: ':uuid',
+    loadChildren: () => import('../portfolio-storage/portfolio-storage.module')
+      .then(m => m.PortfolioStorageModule),
+  },
 ];
 
 @NgModule({
