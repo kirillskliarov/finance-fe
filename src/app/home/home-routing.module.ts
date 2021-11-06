@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import('../security/security.module').then(m => m.SecurityModule),
       },
       {
+        path: 'split',
+        loadChildren: () => import('../split/split.module').then(m => m.SplitModule),
+      },
+      {
         path: '',
         redirectTo: 'portfolios',
         pathMatch: 'full',

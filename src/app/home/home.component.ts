@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
     { title: 'Accounts', url: 'accounts' },
     { title: 'Broker', url: 'broker' },
     { title: 'Security', url: 'security' },
+    { title: 'Split', url: 'split' },
   ];
 
   constructor(

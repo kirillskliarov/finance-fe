@@ -10,11 +10,12 @@ export class Split {
 
   @Expose()
   @Transform(dateTimeTransformer)
-  date: DateTime;
+  dateTime: DateTime;
 
   @Expose()
   value: number;
 
   @Type(() => Security)
+  @Expose()
   security: Security;
 }

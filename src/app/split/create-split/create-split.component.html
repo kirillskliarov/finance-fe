@@ -1,0 +1,21 @@
+<form [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+>
+  <app-dateinput formControlName="date"
+  ></app-dateinput>
+  <app-timeinput formControlName="time"
+  ></app-timeinput>
+  <app-numberinput formControlName="value"
+                   appPlaceholder="Value"
+  ></app-numberinput>
+  <app-typeahead formControlName="security"
+                 [searchFn]="securitySearchFn"
+                 label="Security">
+  </app-typeahead>
+  <button type="submit"
+          class="btn btn-primary"
+          [disabled]="form.invalid || isPending"
+  >
+    Create
+  </button>
+</form>

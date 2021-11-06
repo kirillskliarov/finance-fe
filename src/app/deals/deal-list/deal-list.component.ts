@@ -12,6 +12,7 @@ import { ColDef } from 'ag-grid-community';
 export class DealListComponent implements OnInit {
   deals: Deal[];
   columnDefs: ColDef[] = [
+    { field: 'dateTime' },
     { field: 'amount' },
     { field: 'price' },
     { field: 'brokerFee' },
