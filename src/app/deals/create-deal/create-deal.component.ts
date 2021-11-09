@@ -56,6 +56,7 @@ export class CreateDealComponent implements OnInit {
       account: new FormControl(null, Validators.required),
       portfolio: new FormControl(null, Validators.required),
       security: new FormControl(null, Validators.required),
+      isByOne: new FormControl(false),
       currency: new FormControl(null, Validators.required),
       amount: new FormControl('', Validators.required),
       pricePerUnit: new FormControl(null),
@@ -75,9 +76,16 @@ export class CreateDealComponent implements OnInit {
       this.form.controls.price.setValue(Number(amount) * Number(pricePerUnit));
       this.form.controls.price.updateValueAndValidity();
     });
+
+    // @ts-ignore
+    window.form = this.form;
   }
 
   onSubmit(): void {
+    if (true) {
+      console.log(this.form);
+      return;
+    }
     if (this.form.value && !this.isPending) {
       this.isPending = true;
       const createDealDTO = plainToClass(

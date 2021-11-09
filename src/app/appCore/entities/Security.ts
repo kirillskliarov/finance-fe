@@ -23,4 +23,9 @@ export class Security {
   toString(): string {
     return this.secid;
   }
+
+  isCurrency(): boolean {
+    console.log('isCurrency', Math.random());
+    return this.type === SecurityType.CURRENCY;
+  }
 }

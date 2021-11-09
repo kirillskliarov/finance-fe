@@ -21,6 +21,15 @@
                  [searchFn]="securitySearchFn"
                  label="Security">
   </app-typeahead>
+  <div *ngIf="form.controls.security?.value?.isCurrency()" class="form-check">
+    <label class="form-check-label">
+      <input class="form-check-input"
+             type="checkbox"
+             formControlName="isByOne"
+      >
+      By single
+    </label>
+  </div>
   <app-dropdown formControlName="currency"
                 [items]="currencies"
                 label="Currency"
@@ -43,7 +52,7 @@
   ></app-numberinput>
   <button type="submit"
           class="btn btn-primary"
-          [disabled]="form.invalid || isPending"
+          [disabled]="(form.invalid || isPending) && false"
   >
     Create
   </button>

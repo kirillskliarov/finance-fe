@@ -9,6 +9,7 @@ import { DealResponse } from '../entities/response/DealResponse';
 import { classToPlain, plainToClass } from 'class-transformer';
 import { toClass } from '../libs/toClass';
 import { tap } from 'rxjs/operators';
+import { FindDealRequest } from '../requests/FindDealRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +33,12 @@ export class DealService {
     return this.createdDeal$.asObservable();
   }
 
-  find(): Observable<Deal[]> {
-    return this.http.get<DealResponse[]>(`${this.config.host}/deal`).pipe(
+  find(findPortfolioRequest: FindDealRequest = {}): Observable<Deal[]> {
+    return this.http.get<DealResponse[]>(
+      `${this.config.host}/deal`,
+      { params: findPortfolioRequest as Record<string, string> },
+    ).pipe(
       toClass(Deal),
-    )
+    );
   }
 }

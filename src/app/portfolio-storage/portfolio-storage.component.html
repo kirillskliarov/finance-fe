@@ -1,1 +1,8 @@
-<p>portfolio-storage works!</p>
+<div>{{portfolioStorage.portfolio.name}}</div>
+<ag-grid-angular
+  style="width: 500px; height: 500px;"
+  class="ag-theme-alpine"
+  [rowData]="portfolioStorage.securityStorages"
+  [columnDefs]="columnDefs"
+>
+</ag-grid-angular>

@@ -3,6 +3,7 @@ import { PortfolioService } from '../../appCore/services/portfolio.service';
 import { Observable } from 'rxjs';
 import { ColDef } from 'ag-grid-community';
 import { Portfolio } from '../../appCore/entities/Portfolio';
+import { PortfolioLinkComponent } from '../portfolio-link/portfolio-link.component';
 
 @Component({
   selector: 'app-portfolio-list',
@@ -13,7 +14,7 @@ import { Portfolio } from '../../appCore/entities/Portfolio';
 export class PortfolioListComponent implements OnInit {
   portfolios$: Observable<Portfolio[]>
   columnDefs: ColDef[] = [
-    { field: 'name' },
+    { field: 'name', cellRendererFramework: PortfolioLinkComponent },
   ];
 
   constructor(

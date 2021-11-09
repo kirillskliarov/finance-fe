@@ -41,4 +41,11 @@ export class PortfolioService {
       .subscribe();
   }
 
+  getPortfolio(uuid: string): Observable<Portfolio> {
+    return this.http.get<PortfolioResponse>(`${this.config.host}/portfolio/${uuid}`)
+      .pipe(
+        toClass(Portfolio),
+      );
+  }
+
 }

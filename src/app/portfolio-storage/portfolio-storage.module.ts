@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PortfolioStorageRoutingModule } from './portfolio-storage-routing.module';
 import { PortfolioStorageComponent } from './portfolio-storage.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { PortfolioStorageComponent } from './portfolio-storage.component';
   ],
   imports: [
     CommonModule,
-    PortfolioStorageRoutingModule
+    PortfolioStorageRoutingModule,
+    AgGridModule
   ]
 })
 export class PortfolioStorageModule { }
