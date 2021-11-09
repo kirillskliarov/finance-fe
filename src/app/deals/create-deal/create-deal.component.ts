@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { Account } from '../../appCore/entities/Account';
 import { Portfolio } from '../../appCore/entities/Portfolio';
 import { DateTime } from 'luxon';
+import { isNumeric } from '../../appCore/libs/isNumeric';
 
 @Component({
   selector: 'app-create-deal',
@@ -58,7 +59,7 @@ export class CreateDealComponent implements OnInit {
       security: new FormControl(null, Validators.required),
       isByOne: new FormControl(false),
       currency: new FormControl(null, Validators.required),
-      amount: new FormControl('', Validators.required),
+      amount: new FormControl(null, Validators.required),
       pricePerUnit: new FormControl(null),
       price: new FormControl(null, Validators.required),
       brokerFee: new FormControl(null, Validators.required),
@@ -67,14 +68,12 @@ export class CreateDealComponent implements OnInit {
 
     this.form.controls.pricePerUnit.valueChanges.subscribe((pricePerUnit: number) => {
       const amount = this.form.controls.amount.value;
-      this.form.controls.price.setValue(Number(amount) * Number(pricePerUnit));
-      this.form.controls.price.updateValueAndValidity();
+      this.writePrice({ pricePerUnit, amount });
     });
 
     this.form.controls.amount.valueChanges.subscribe((amount: number) => {
       const pricePerUnit = this.form.controls.pricePerUnit.value;
-      this.form.controls.price.setValue(Number(amount) * Number(pricePerUnit));
-      this.form.controls.price.updateValueAndValidity();
+      this.writePrice({ pricePerUnit, amount });
     });
 
     // @ts-ignore
@@ -115,4 +114,9 @@ export class CreateDealComponent implements OnInit {
       });
   }
 
+  private writePrice({ pricePerUnit, amount }: { pricePerUnit: number | null; amount: number | null }): void {
+    const price = isNumeric(pricePerUnit) && isNumeric(amount) ? amount * pricePerUnit : null;
+    this.form.controls.price.setValue(price);
+    this.form.controls.price.updateValueAndValidity();
+  }
 }

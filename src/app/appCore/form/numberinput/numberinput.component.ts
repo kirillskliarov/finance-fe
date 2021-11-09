@@ -61,7 +61,8 @@ export class NumberinputComponent implements OnInit, ControlValueAccessor {
   }
 
   onInputChange(inputValue: string): void {
-    this.value = Number(inputValue.replace(',', '.'));
+    const parsedValue = inputValue.replace(',', '.');
+    this.value = parsedValue ? Number(parsedValue) : null;
     this.onChangeFn(this.value);
   }
 

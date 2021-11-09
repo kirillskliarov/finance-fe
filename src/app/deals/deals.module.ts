@@ -12,6 +12,7 @@ import { TimeinputModule } from '../appCore/form/timeinput/timeinput.module';
 import { NumberinputModule } from '../appCore/form/numberinput/numberinput.module';
 import { DealListComponent } from './deal-list/deal-list.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { IsCurrencyModule } from '../appCore/pipes/is-currency/is-currency.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { AgGridModule } from 'ag-grid-angular';
     DateinputModule,
     TimeinputModule,
     NumberinputModule,
-    AgGridModule
+    AgGridModule,
+    IsCurrencyModule
   ]
 })
 export class DealsModule { }
