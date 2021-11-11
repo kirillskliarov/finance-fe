@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { MOEXCurrencyFeeParams, MOEXFeeParams, MOEXStockFeeParams } from './params/MoexFeeParams';
+import { MOEXFeeParams, MOEXStockFeeParams } from './params/MoexFeeParams';
 import { roundMoney } from '../../libs/roundMoney';
 import { MIN_FIX_PAYMENT } from '../../libs/constants';
 import { CONFIG_TOKEN } from '../../injection-tokens/config.token';
@@ -36,7 +36,7 @@ export class MoexFeeService {
     return exchangePayment + clearingPayment;
   }
 
-  getCurrencyFee(params: MOEXCurrencyFeeParams): number {
+  getCurrencyFee(params: MOEXFeeParams): number {
     const absSum = Math.abs(params.summ);
     const absCount = Math.abs(params.count);
 

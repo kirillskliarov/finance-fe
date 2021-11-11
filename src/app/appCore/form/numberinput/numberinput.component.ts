@@ -26,6 +26,8 @@ export class NumberinputComponent implements OnInit, ControlValueAccessor {
   valuePattern = /^-?\d+([.,]\d+)?$/;
   @Input()
   appPlaceholder: string;
+  @Input()
+  ctrlName: string;
   @ViewChild('inputElement', { read: ElementRef })
   inputElement: ElementRef<HTMLInputElement>;
   onChangeFn: (value: number | null) => void;
@@ -57,7 +59,11 @@ export class NumberinputComponent implements OnInit, ControlValueAccessor {
   writeValue(value: number | null): void {
     this.value = value;
     this.viewedValue = String(value ?? '');
-    this.cdr.markForCheck();
+    this.cdr.detectChanges();
+    if (this.ctrlName === 'brokerFee') {
+      console.log('this.value: ', this.value);
+      console.log('this.viewedValue: ', this.viewedValue);
+    }
   }
 
   onInputChange(inputValue: string): void {

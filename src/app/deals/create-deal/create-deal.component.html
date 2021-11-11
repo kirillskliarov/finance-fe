@@ -46,6 +46,7 @@
                    appPlaceholder="Price"
   ></app-numberinput>
   <app-numberinput formControlName="brokerFee"
+                   ctrlName="brokerFee"
                    appPlaceholder="Broker fee"
   ></app-numberinput>
   <app-numberinput formControlName="exchangeFee"
@@ -53,7 +54,7 @@
   ></app-numberinput>
   <button type="submit"
           class="btn btn-primary"
-          [disabled]="(form.invalid || isPending) && false"
+          [disabled]="form.invalid || isPending"
   >
     Create
   </button>

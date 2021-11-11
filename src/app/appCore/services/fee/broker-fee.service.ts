@@ -9,14 +9,14 @@ export class BrokerFeeService {
 
   constructor(private readonly vtbFeeService: VTBFeeService) { }
 
-  getFee(params: BrokerFeeParams): number {
+  getFee(params: BrokerFeeParams): number | null {
     switch (params.broker.name.toLowerCase()) {
       case 'vtb':
       case 'втб': {
         return this.vtbFeeService.getFee(params);
       }
       default: {
-        return 0;
+        return null;
       }
     }
   }

@@ -13,6 +13,9 @@ import { Account } from '../../appCore/entities/Account';
 import { Portfolio } from '../../appCore/entities/Portfolio';
 import { DateTime } from 'luxon';
 import { isNumeric } from '../../appCore/libs/isNumeric';
+import { BrokerFeeService } from '../../appCore/services/fee/broker-fee.service';
+import { MoexFeeService } from '../../appCore/services/fee/moex-fee.service';
+import { Broker } from '../../appCore/entities/Broker';
 
 @Component({
   selector: 'app-create-deal',
@@ -36,6 +39,8 @@ export class CreateDealComponent implements OnInit {
     private readonly portfolioService: PortfolioService,
     private readonly securityService: SecurityService,
     private readonly dealService: DealService,
+    private readonly brokerFee: BrokerFeeService,
+    private readonly moexFee: MoexFeeService,
   ) {
     this.accounts$ = this.accountService.getAccounts();
     this.portfolios$ = this.portfolioService.getPortfolios();
@@ -66,25 +71,21 @@ export class CreateDealComponent implements OnInit {
       exchangeFee: new FormControl(null, Validators.required),
     });
 
-    this.form.controls.pricePerUnit.valueChanges.subscribe((pricePerUnit: number) => {
-      const amount = this.form.controls.amount.value;
-      this.writePrice({ pricePerUnit, amount });
+    this.form.controls.pricePerUnit.valueChanges.subscribe(() => this.calculatePrice());
+    this.form.controls.amount.valueChanges.subscribe(() => this.calculatePrice());
+    this.form.controls.price.valueChanges.subscribe(() => {
+      this.calculateBrokerFee();
+      this.calculateExchangeFee();
     });
-
-    this.form.controls.amount.valueChanges.subscribe((amount: number) => {
-      const pricePerUnit = this.form.controls.pricePerUnit.value;
-      this.writePrice({ pricePerUnit, amount });
+    this.form.controls.security.valueChanges.subscribe(() => {
+      this.calculateBrokerFee();
+      this.calculateExchangeFee();
     });
-
-    // @ts-ignore
-    window.form = this.form;
+    this.form.controls.account.valueChanges.subscribe(() => this.calculateBrokerFee());
+    this.form.controls.isByOne.valueChanges.subscribe(() => this.calculateExchangeFee());
   }
 
   onSubmit(): void {
-    if (true) {
-      console.log(this.form);
-      return;
-    }
     if (this.form.value && !this.isPending) {
       this.isPending = true;
       const createDealDTO = plainToClass(
@@ -114,9 +115,55 @@ export class CreateDealComponent implements OnInit {
       });
   }
 
-  private writePrice({ pricePerUnit, amount }: { pricePerUnit: number | null; amount: number | null }): void {
+  private calculatePrice(): void {
+    const amount = this.form.controls.amount.value;
+    const pricePerUnit = this.form.controls.pricePerUnit.value;
     const price = isNumeric(pricePerUnit) && isNumeric(amount) ? amount * pricePerUnit : null;
     this.form.controls.price.setValue(price);
     this.form.controls.price.updateValueAndValidity();
+  }
+
+  private calculateBrokerFee(): void {
+    const summ = this.form.controls.price.value;
+    const security = <Security>this.form.controls.security.value;
+    const broker = (<Account>this.form.controls.account.value)?.broker;
+
+    if (isNumeric(summ) && security && broker) {
+      const brokerFee = this.brokerFee.getFee({
+        summ,
+        security,
+        broker,
+      });
+
+      if (isNumeric(brokerFee)) {
+        this.form.controls.brokerFee.setValue(brokerFee);
+        this.form.controls.brokerFee.updateValueAndValidity();
+      }
+    } else {
+      this.form.controls.brokerFee.setValue(null);
+      this.form.controls.brokerFee.updateValueAndValidity();
+    }
+  }
+
+  private calculateExchangeFee(): void {
+    const summ = this.form.controls.price.value;
+    const count = this.form.controls.amount.value;
+    const security = <Security>this.form.controls.security.value;
+    const isByOne = this.form.controls.isByOne.value;
+
+    if (isNumeric(summ) && isNumeric(count) && security) {
+      const moexFee = this.moexFee.getFee({
+        summ,
+        security,
+        isByOne,
+        count,
+      });
+
+      this.form.controls.exchangeFee.setValue(moexFee);
+      this.form.controls.exchangeFee.updateValueAndValidity();
+    } else {
+      this.form.controls.exchangeFee.setValue(null);
+      this.form.controls.exchangeFee.updateValueAndValidity();
+    }
   }
 }
